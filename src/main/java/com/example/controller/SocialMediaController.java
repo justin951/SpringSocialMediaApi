@@ -118,10 +118,24 @@ public class SocialMediaController {
     public @ResponseBody ResponseEntity<String> deleteMessage(@PathVariable Integer messageId) {
         boolean deleted = messageService.deleteMessage(messageId);
         return deleted ?
-                ResponseEntity.ok().body("1") :
+                ResponseEntity.ok().body("{\"deletedRows\": 1}") : // might break tests
                 ResponseEntity.ok().build();
     }
 
-    // TODO 7:
+    // TODO 7: PARTIAL
+    @PatchMapping("messages/{messageId}")
+    public @ResponseBody ResponseEntity<String> patchMessage(
+            @PathVariable Integer messageId,
+            @RequestParam Integer postedBy,
+            @RequestParam(defaultValue = "0", required = false) String messageText,
+            @RequestParam(defaultValue = "0", required = false) Long timePostedEpoch) {
+        boolean patched = messageService.patchMessage(messageId, postedBy, messageText, timePostedEpoch);
+        return patched ?
+                ResponseEntity.ok().body("{\"patchedRows\": 1}") : // might break tests
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    // TODO 8:
+
 
 }
