@@ -2,6 +2,7 @@ package com.example.controller;
 
 
 import com.example.entity.Account;
+import com.example.entity.Message;
 import com.example.exception.ResourceNotFoundException;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -32,26 +34,27 @@ public class SocialMediaController {
         this.messageService = messageService;
     }
 
+    // TODO 1: PARTIAL
     @PostMapping("register")
-    public ResponseEntity<String> register(@RequestBody Account account) {
-        if (account.getUsername().isEmpty()) {
+    public ResponseEntity<String> registerAccount(@RequestBody Account newAccount) {
+        if (newAccount.getUsername().isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Username must not be blank");
         }
 
-        if (account.getPassword().length() < 4) {
+        if (newAccount.getPassword().length() < 4) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Password must be at least 4 characters long");
         }
 
-        Optional<Account> preexistingAccount = accountService.getAccountByUsername(account.getUsername());
+        Optional<Account> preexistingAccount = accountService.getAccountByUsername(newAccount.getUsername());
 
         if (preexistingAccount.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body("Username already exists");
         } else {
             try {
-                accountService.register(account);
+                accountService.register(newAccount);
                 return ResponseEntity.ok() // should be 200?
                         .body("Account successfully registered");
             } catch (Exception ex) {
@@ -62,8 +65,9 @@ public class SocialMediaController {
 
     }
 
+    // TODO 2: PARTIAL
     @PostMapping("login")
-    public ResponseEntity<?> login(@RequestBody Account account) throws AuthenticationException {
+    public ResponseEntity<?> loginAccount(@RequestBody Account account) throws AuthenticationException {
         Optional<Account> loggedAccount = accountService.login(account.getUsername(), account.getPassword());
         if (loggedAccount.isPresent()) {
             return ResponseEntity.ok(loggedAccount);
@@ -73,6 +77,51 @@ public class SocialMediaController {
         }
     }
 
+    // TODO 3: PARTIAL
+    @PostMapping("messages")
+    public ResponseEntity<Message> createNewMessage(@RequestBody Message newMessage) {
 
+        if (newMessage.getMessageText() == null || newMessage.getMessageText().isEmpty()
+                || newMessage.getMessageText().length() > 255) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(null);
+        }
+
+        if (accountService.getAccountById(newMessage.getPostedBy()).isPresent()) {
+            messageService.addMessage(newMessage);
+            return ResponseEntity.ok()
+                    .body(newMessage);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(null);
+        }
+
+    }
+
+    // TODO 4: PARTIAL
+    @GetMapping
+    public @ResponseBody List<Message> getAllMessages() {
+        return messageService.getMessages();
+    }
+
+    // TODO 5: PARTIAL
+    @GetMapping("messages/{messageId}")
+    public @ResponseBody ResponseEntity<Optional<Message>> getMessage(@PathVariable Integer messageId) {
+        Optional<Message> message = messageService.getMessageById(messageId);
+        return message.isPresent() ?
+                ResponseEntity.ok().body(message) :
+                ResponseEntity.ok().body(Optional.empty());
+    }
+
+    // TODO 6: PARTIAL
+    @DeleteMapping("messages/{messageId}")
+    public @ResponseBody ResponseEntity<String> deleteMessage(@PathVariable Integer messageId) {
+        boolean deleted = messageService.deleteMessage(messageId);
+        return deleted ?
+                ResponseEntity.ok().body("1") :
+                ResponseEntity.ok().build();
+    }
+
+    // TODO 7:
 
 }

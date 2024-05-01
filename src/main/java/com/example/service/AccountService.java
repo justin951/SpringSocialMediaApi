@@ -31,6 +31,10 @@ public class AccountService {
         return accountRepository.findByUsername(username);
     }
 
+    public Optional<Account> getAccountById(Integer Id) throws ResourceNotFoundException {
+        return accountRepository.findById(Id);
+    }
+
     public Optional<Account> login(String username, String password) {
         return accountRepository.findByUsernameAndPassword(username, password);
     }
