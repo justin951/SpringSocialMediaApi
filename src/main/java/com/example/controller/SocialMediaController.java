@@ -1,9 +1,7 @@
 package com.example.controller;
 
-
 import com.example.entity.Account;
 import com.example.entity.Message;
-import com.example.exception.ResourceNotFoundException;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +11,21 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
- * TODO: You will need to write your own endpoints and handlers for your controller using Spring. The endpoints you will need can be
- * found in readme.md as well as the test cases. You be required to use the @GET/POST/PUT/DELETE/etc Mapping annotations
- * where applicable as well as the @ResponseBody and @PathVariable annotations. You should
- * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
+ * TODO: You will need to write your own endpoints and handlers for your
+ * controller using Spring. The endpoints you will need can be
+ * found in readme.md as well as the test cases. You be required to use
+ * the @GET/POST/PUT/DELETE/etc Mapping annotations
+ * where applicable as well as the @ResponseBody and @PathVariable annotations.
+ * You should
+ * refer to prior mini-project labs and lecture materials for guidance on how a
+ * controller may be built.
  */
 @RestController
-@RequestMapping("placeholder")
+@RequestMapping
 public class SocialMediaController {
 
     private AccountService accountService;
@@ -99,43 +102,59 @@ public class SocialMediaController {
     }
 
     // TODO 4: PARTIAL
-    @GetMapping
-    public @ResponseBody List<Message> getAllMessages() {
-        return messageService.getMessages();
+    @GetMapping("messages")
+    public @ResponseBody ResponseEntity<List<Message>> getAllMessages() {
+        List<Message> allMessagesList = messageService.getMessages();
+        return ResponseEntity.ok().body(allMessagesList);
     }
 
     // TODO 5: PARTIAL
     @GetMapping("messages/{messageId}")
     public @ResponseBody ResponseEntity<Optional<Message>> getMessage(@PathVariable Integer messageId) {
         Optional<Message> message = messageService.getMessageById(messageId);
-        return message.isPresent() ?
-                ResponseEntity.ok().body(message) :
-                ResponseEntity.ok().body(Optional.empty());
+        return message.isPresent() ? ResponseEntity.ok().body(message) : ResponseEntity.ok().build();
     }
 
     // TODO 6: PARTIAL
     @DeleteMapping("messages/{messageId}")
     public @ResponseBody ResponseEntity<String> deleteMessage(@PathVariable Integer messageId) {
         boolean deleted = messageService.deleteMessage(messageId);
-        return deleted ?
-                ResponseEntity.ok().body("{\"deletedRows\": 1}") : // might break tests
-                ResponseEntity.ok().build();
+        return deleted ? ResponseEntity.ok().body("1") : ResponseEntity.ok().build();
     }
 
     // TODO 7: PARTIAL
     @PatchMapping("messages/{messageId}")
     public @ResponseBody ResponseEntity<String> patchMessage(
             @PathVariable Integer messageId,
-            @RequestParam Integer postedBy,
-            @RequestParam(defaultValue = "0", required = false) String messageText,
-            @RequestParam(defaultValue = "0", required = false) Long timePostedEpoch) {
-        boolean patched = messageService.patchMessage(messageId, postedBy, messageText, timePostedEpoch);
-        return patched ?
-                ResponseEntity.ok().body("{\"patchedRows\": 1}") : // might break tests
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            @RequestBody Map<String, String> requestBody) {
+        String messageText = requestBody.get("messageText");
+        Long timePostedEpoch = requestBody.get("timePostedEpoch") != null ?
+                Long.parseLong(requestBody.get("timePostedEpoch").toString()) : 0L;
+
+        if (messageText.isEmpty() || messageText.length() > 255) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        }
+
+        try {
+            boolean patched = messageService.patchMessage(messageId, messageText, timePostedEpoch);
+            if (patched) {
+                return ResponseEntity.ok().body("1");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
     }
 
-    // TODO 8:
-
+    // TODO 8: PARTIAL
+    @GetMapping("accounts/{accountId}/messages")
+    public @ResponseBody ResponseEntity<List<Message>> getAllMessagesByPostedBy(@PathVariable int accountId) {
+        List<Message> messagesByAccount = messageService.getMessagesByPostedBy(accountId);
+        return ResponseEntity.ok()
+                .body(messagesByAccount);
+    }
 
 }

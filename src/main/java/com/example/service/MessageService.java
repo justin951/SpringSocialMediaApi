@@ -42,19 +42,21 @@ public class MessageService {
     }
 
     public boolean patchMessage(Integer messageId,
-                                Integer postedBy,
                                 String messageText,
                                 Long timePostedEpoch) throws ResourceNotFoundException {
         try {
             Message patchedMessage = messageRepository.findById(messageId).orElseThrow(() ->
                     new ResourceNotFoundException("Message with Id " + messageId + " not found"));
-            if (postedBy > 0) patchedMessage.setPostedBy(postedBy);
             if (timePostedEpoch > 0) patchedMessage.setTimePostedEpoch(timePostedEpoch);
             messageRepository.save(patchedMessage);
             return true;
         } catch (EmptyResultDataAccessException e) {
             return false;
         }
+    }
+
+    public List<Message> getMessagesByPostedBy(int posterId) throws ResourceNotFoundException {
+        return messageRepository.findByPostedBy(posterId);
     }
 
 }

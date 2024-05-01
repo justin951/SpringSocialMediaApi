@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.naming.AuthenticationException;
 import java.util.Optional;
 
 @Service
@@ -15,12 +14,10 @@ import java.util.Optional;
 public class AccountService {
 
     private AccountRepository accountRepository;
-    private MessageService messageService;
 
     @Autowired
     public AccountService(AccountRepository accountRepository, MessageService messageService) {
         this.accountRepository = accountRepository;
-        this.messageService = messageService;
     }
 
     public void register(Account newAccount) {
