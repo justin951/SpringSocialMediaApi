@@ -12,16 +12,16 @@ import static org.springframework.boot.SpringApplication.run;
 
 /**
  * This is a class that is used to run your application.
- *
+ * <p>
  * DO NOT CHANGE ANYTHING IN THIS CLASS
- *
  */
 @SpringBootApplication
 public class SocialMediaApp {
     /**
      * Runs the application
+     *
      * @param args The arguments of the program.
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     public static void main(String[] args) throws InterruptedException {
         SpringApplication.run(SocialMediaApp.class, args);

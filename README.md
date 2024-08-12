@@ -104,3 +104,207 @@ As a user, I should be able to submit a GET request on the endpoint GET localhos
 - The project was created leveraging the spring framework, including dependency injection, autowire functionality and/or Spring annotations.
 
 # Good luck!
+
+```
+CapstoneAPI
+├─ .idea
+│  ├─ compiler.xml
+│  ├─ encodings.xml
+│  ├─ jarRepositories.xml
+│  ├─ misc.xml
+│  ├─ vcs.xml
+│  └─ workspace.xml
+├─ .vscode
+│  ├─ settings.json
+│  └─ tasks.json
+├─ commit-command.sh
+├─ gitignore.txt
+├─ gitpod.yml
+├─ install-extensions.sh
+├─ Instructions.pdf
+├─ pom.xml
+├─ README_original.md
+├─ src
+│  ├─ main
+│  │  ├─ java
+│  │  │  └─ com
+│  │  │     └─ example
+│  │  │        ├─ controller
+│  │  │        │  └─ SocialMediaController.java
+│  │  │        ├─ entity
+│  │  │        │  ├─ Account.java
+│  │  │        │  └─ Message.java
+│  │  │        ├─ exception
+│  │  │        │  ├─ exception.txt
+│  │  │        │  └─ ResourceNotFoundException.java
+│  │  │        ├─ repository
+│  │  │        │  ├─ AccountRepository.java
+│  │  │        │  └─ MessageRepository.java
+│  │  │        ├─ service
+│  │  │        │  ├─ AccountService.java
+│  │  │        │  └─ MessageService.java
+│  │  │        └─ SocialMediaApp.java
+│  │  └─ resources
+│  │     ├─ application.properties
+│  │     └─ data.sql
+│  └─ test
+│     └─ java
+│        └─ com
+│           └─ example
+│              ├─ CreateMessageTest.java
+│              ├─ DeleteMessageByMessageIdTest.java
+│              ├─ RetrieveAllMessagesForUserTest.java
+│              ├─ RetrieveAllMessagesTest.java
+│              ├─ RetrieveMessageByMessageIdTest.java
+│              ├─ SpringTest.java
+│              ├─ UpdateMessageTest.java
+│              ├─ UserLoginTest.java
+│              └─ UserRegistrationTest.java
+└─ target
+   ├─ classes
+   │  ├─ application.properties
+   │  ├─ com
+   │  │  └─ example
+   │  │     ├─ controller
+   │  │     │  └─ SocialMediaController.class
+   │  │     ├─ entity
+   │  │     │  ├─ Account.class
+   │  │     │  └─ Message.class
+   │  │     ├─ exception
+   │  │     │  ├─ exception.txt
+   │  │     │  └─ ResourceNotFoundException.class
+   │  │     ├─ repository
+   │  │     │  ├─ AccountRepository.class
+   │  │     │  └─ MessageRepository.class
+   │  │     ├─ service
+   │  │     │  ├─ AccountService.class
+   │  │     │  └─ MessageService.class
+   │  │     └─ SocialMediaApp.class
+   │  └─ data.sql
+   └─ test-classes
+      └─ com
+         └─ example
+            ├─ CreateMessageTest.class
+            ├─ DeleteMessageByMessageIdTest.class
+            ├─ RetrieveAllMessagesForUserTest$1.class
+            ├─ RetrieveAllMessagesForUserTest$2.class
+            ├─ RetrieveAllMessagesForUserTest.class
+            ├─ RetrieveAllMessagesTest$1.class
+            ├─ RetrieveAllMessagesTest.class
+            ├─ RetrieveMessageByMessageIdTest.class
+            ├─ SpringTest.class
+            ├─ UpdateMessageTest.class
+            ├─ UserLoginTest.class
+            └─ UserRegistrationTest.class
+
+```
+
+```
+CapstoneAPI
+├─ .idea
+│  ├─ compiler.xml
+│  ├─ encodings.xml
+│  ├─ jarRepositories.xml
+│  ├─ misc.xml
+│  ├─ vcs.xml
+│  └─ workspace.xml
+├─ .vscode
+│  ├─ settings.json
+│  └─ tasks.json
+├─ commit-command.sh
+├─ gitignore.txt
+├─ gitpod.yml
+├─ install-extensions.sh
+├─ Instructions.pdf
+├─ pom.xml
+├─ README.md
+├─ src
+│  ├─ main
+│  │  ├─ java
+│  │  │  └─ com
+│  │  │     └─ example
+│  │  │        ├─ controller
+│  │  │        │  └─ SocialMediaController.java
+│  │  │        ├─ entity
+│  │  │        │  ├─ Account.java
+│  │  │        │  └─ Message.java
+│  │  │        ├─ exception
+│  │  │        │  ├─ exception.txt
+│  │  │        │  └─ ResourceNotFoundException.java
+│  │  │        ├─ repository
+│  │  │        │  ├─ AccountRepository.java
+│  │  │        │  └─ MessageRepository.java
+│  │  │        ├─ service
+│  │  │        │  ├─ AccountService.java
+│  │  │        │  └─ MessageService.java
+│  │  │        └─ SocialMediaApp.java
+│  │  └─ resources
+│  │     ├─ application.properties
+│  │     ├─ application.yaml
+│  │     └─ data.sql
+│  └─ test
+│     └─ java
+│        └─ com
+│           └─ example
+│              ├─ CreateMessageTest.java
+│              ├─ DeleteMessageByMessageIdTest.java
+│              ├─ RetrieveAllMessagesForUserTest.java
+│              ├─ RetrieveAllMessagesTest.java
+│              ├─ RetrieveMessageByMessageIdTest.java
+│              ├─ SpringTest.java
+│              ├─ UpdateMessageTest.java
+│              ├─ UserLoginTest.java
+│              └─ UserRegistrationTest.java
+└─ target
+   ├─ classes
+   │  ├─ application.properties
+   │  ├─ application.yaml
+   │  ├─ com
+   │  │  └─ example
+   │  │     ├─ controller
+   │  │     │  └─ SocialMediaController.class
+   │  │     ├─ entity
+   │  │     │  ├─ Account.class
+   │  │     │  └─ Message.class
+   │  │     ├─ exception
+   │  │     │  ├─ exception.txt
+   │  │     │  └─ ResourceNotFoundException.class
+   │  │     ├─ repository
+   │  │     │  ├─ AccountRepository.class
+   │  │     │  └─ MessageRepository.class
+   │  │     ├─ service
+   │  │     │  ├─ AccountService.class
+   │  │     │  └─ MessageService.class
+   │  │     └─ SocialMediaApp.class
+   │  └─ data.sql
+   ├─ generated-sources
+   │  └─ annotations
+   ├─ generated-test-sources
+   │  └─ test-annotations
+   ├─ maven-status
+   │  └─ maven-compiler-plugin
+   │     ├─ compile
+   │     │  └─ default-compile
+   │     │     ├─ createdFiles.lst
+   │     │     └─ inputFiles.lst
+   │     └─ testCompile
+   │        └─ default-testCompile
+   │           ├─ createdFiles.lst
+   │           └─ inputFiles.lst
+   └─ test-classes
+      └─ com
+         └─ example
+            ├─ CreateMessageTest.class
+            ├─ DeleteMessageByMessageIdTest.class
+            ├─ RetrieveAllMessagesForUserTest$1.class
+            ├─ RetrieveAllMessagesForUserTest$2.class
+            ├─ RetrieveAllMessagesForUserTest.class
+            ├─ RetrieveAllMessagesTest$1.class
+            ├─ RetrieveAllMessagesTest.class
+            ├─ RetrieveMessageByMessageIdTest.class
+            ├─ SpringTest.class
+            ├─ UpdateMessageTest.class
+            ├─ UserLoginTest.class
+            └─ UserRegistrationTest.class
+
+```
