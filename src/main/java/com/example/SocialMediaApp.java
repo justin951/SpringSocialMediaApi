@@ -10,11 +10,6 @@ import org.springframework.web.client.RestTemplate;
 
 import static org.springframework.boot.SpringApplication.run;
 
-/**
- * This is a class that is used to run your application.
- * <p>
- * DO NOT CHANGE ANYTHING IN THIS CLASS
- */
 @SpringBootApplication
 public class SocialMediaApp {
     /**
